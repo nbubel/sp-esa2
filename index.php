@@ -1,76 +1,51 @@
-﻿<?php
-require ('konfig.php');
+<?php
+session_start();
+require_once ('db.php');
+require_once ('helper.php');
+
+if (!($_SESSION["login"])){
 ?>
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bestellformular - Deutscher Leichtathletik-Verband Fanshop</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
 
-         <!-- Besondere Stile für diese Vorlage -->
-         <link href="css/navbar-fixed-top.css" rel="stylesheet">
+<?php head(); ?>
+<body>
+  <?php nav(); ?>
 
-         <!-- Nur für Testzwecke. Kopiere diese Zeilen nicht in echte Projekte! -->
-         <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-         <script src="js/ie-emulation-modes-warning.js"></script>
+<div class="container">
+  <div class="jumbotron" style="padding-right: 15px;padding-left: 15px;">
+    <img style="width: 100%;" src="http://www.leichtathletik-shop.info/WebRoot/Store22/Shops/62420778/MediaGallery/banner_shop.jpg?CachePrevention=1447671124">
+    <h1>Login zum Onlineshop</h1>
+    <p>Bitte loggen Sie sich mit Ihren Zugangsdaten ein.</p>
+    <p>Einen Testzugang erhalten Sie mit dem Usernamen: "dlv" und dem Passwort "Rio2016"!</p>
 
-         <!-- Unterstützung für Media Queries und HTML5-Elemente in IE8 über HTML5 shim und Respond.js -->
-         <!--[if lt IE 9]>
-           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-         <![endif]-->
+    <form action="Session.php" method="post">
 
-    </head>
+        Dein Username:<br>
+        <input class="form-control" type="text" size="24" maxlength="50"
+        name="username"><br><br>
+
+        Dein Passwort:<br>
+        <input class="form-control" type="password" size="24" maxlength="50"
+        name="passwort"><br>
+
+        <input class='btn btn-lg btn-primary' style="background-color: red;border-color: darkred;" role='button' name="Send" type="submit" value="Login">
+    </form>
+  </div>
+</div> <!-- /container -->
+
+
+<?php bootstrapJs(); ?>
+
 
 <?php
-
-function nav(){
-  echo "
-  <!-- Fixierte Navbar -->
-   <nav class='navbar navbar-default navbar-fixed-top'>
-     <div class='container'>
-       <div class='navbar-header'>
-         <button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
-           <span class='sr-only'>Navigation ein-/ausblenden</span>
-           <span class='icon-bar'></span>
-           <span class='icon-bar'></span>
-           <span class='icon-bar'></span>
-         </button>
-         <a class='navbar-brand' href='#'>leichtathletik.de-Fanshop</a>
-       </div>
-       <div id='navbar' class='navbar-collapse collapse'>
-         <ul class='nav navbar-nav'>
-           <li class='active'><a href='#'>Bestellformular</a></li>
-           <li><a href='#'>Bekleidung</a></li>
-           <li><a href='#'>Bücher</a></li>
-         </ul>
-       </div><!--/.nav-collapse -->
-     </div>
-   </nav>";
-    }
-
-
-
-   function bootstrapJs(){
-     echo "
-   <!-- Bootstrap-JavaScript
-   ================================================== -->
-   <!-- Am Ende des Dokuments platziert, damit Seiten schneller laden -->
-   <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
-   <script src='js/bootstrap.min.js'></script>";
+exit;
 }
+
+
 
 if ( ($_POST['name'] && $_POST['str'] && $_POST['plz'] && $_POST['mail'] && $_POST['tel'] && $_POST['alter'] && $_POST['nr'] && $_POST['size'] && $_POST['farbe']) != ""  && ($_POST['bedingung'] == "yes") && (check_plz_de($_POST['plz'])) )
 {
 ?>
-
+<?php head(); ?>
 <body>
   <?php nav(); ?>
 
@@ -101,9 +76,16 @@ if ( ($_POST['name'] && $_POST['str'] && $_POST['plz'] && $_POST['mail'] && $_PO
         </table>
         </form>
 
+      </div>
+
+    </div> <!-- /container -->
+
+
+<<?php bootstrapJs(); ?>
+
 
 <?php
-$sql = "INSERT INTO bestellung ( `id`, `datum`, `anmerkung`, `name`, `str` , `plz`, `mail`, `tel`, `alter`, `nr`, `size`, `farbe` ) VALUES ( NULL , '". date("Y-m-d") ."',  '". $_POST['anmerkung'] ."', '". $_POST['name'] ."', '". $_POST['str'] ."', '". $_POST['plz'] ."', '". $_POST['mail'] ."', '". $_POST['tel'] ."', '". $_POST['alter'] ."',  '". $_POST['nr'] ."', '". $_POST['size'] ."', '". $_POST['farbe'] ."') ";
+$sql = "INSERT INTO bestellung (id, datum, anmerkung, userID, artikelID) VALUES (NULL , NULL, NULL,  NULL,  NULL)";
 
 // Datenbank auswählen
 
@@ -116,7 +98,6 @@ if ( ! $db_erg )
 {
   die('Ung&uuml;ltige Abfrage: ' . mysql_error());
 }
-
 exit;
 }
 
@@ -125,6 +106,7 @@ if ( ($_POST['name'] == "" && $_POST['str']== "" && $_POST['plz']== "" && $_POST
 
 ?>
 
+<?php head(); ?>
 <body>
   <?php nav(); ?>
 
@@ -177,6 +159,7 @@ else
 {
 
 ?>
+<?php head(); ?>
 <body>
   <?php nav(); ?>
 
