@@ -4,7 +4,6 @@ session_unset();
 session_destroy();
 $_SESSION = array();
 require_once ('db.php');
-require_once ('User.php');
 require_once ('helper.php');
 ?>
 

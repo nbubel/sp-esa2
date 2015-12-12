@@ -4,8 +4,7 @@
  */
 class User {
 
-    public $vorname;
-    public $nachname;
+    public $name;
     public $kundennummer;
     public $passwort;
     public $str;
@@ -18,7 +17,7 @@ class User {
     /**
      * Konstruktor fuer einen User
      */
-    public function __construct($name, $kundennummer, $benutzername, $passwort, $str, $plz, $mail, $telefon, $alter, $status) {
+    public function __construct($name, $kundennummer, $benutzername, $passwort, $str, $plz, $mail, $telefon, $age, $status) {
         $this->name = $name;
         $this->kundennummer = $kundennummer;
         $this->benutzername = $benutzername;

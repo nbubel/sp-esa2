@@ -3,9 +3,7 @@ session_start();
 require_once ('db.php');
 require_once ('User.php');
 require_once ('helper.php');
-?>
 
-<?php
 mysql_select_db( MYSQL_DATENBANK ) or die ("Datenbank konnte nicht ausgewählt werden");
 
 $formUsername = $_POST["username"];
@@ -15,10 +13,14 @@ $abfrage = "SELECT userID, benutzername, passwort, name, str, plz, mail, tel, ag
 $ergebnis = mysql_query($abfrage) OR die("Error: $abfrage <br>".mysql_error());
 $row = mysql_fetch_object($ergebnis);
 
-$user = new User($row->name,$row->userID,$row->benutzername,$row->passwort,$row->str,$row->plz,$row->mail,$row->telefon,$row->age,false);
-
-$_SESSION["User"] = $user;
-
+$_SESSION['User'] = new User($row->name,$row->userID,$row->benutzername,$row->passwort,$row->str,$row->plz,$row->mail,$row->tel,$row->age,false);
+$_SESSION['Username'] = $_SESSION['User']->name;
+$_SESSION['Userstr'] = $_SESSION['User']->str;
+$_SESSION['Userplz'] = $_SESSION['User']->plz;
+$_SESSION['Usermail'] = $_SESSION['User']->mail;
+$_SESSION['Usertelefon'] = $_SESSION['User']->telefon;
+$_SESSION['Userage'] = $_SESSION['User']->age;
+$_SESSION['UserID'] = $_SESSION['User']->kundennummer;
 ?>
 
 <?php head(); ?>
@@ -32,7 +34,8 @@ $_SESSION["User"] = $user;
 
 
 <?php
-    if($_SESSION["User"]->passwort == $formPasswort)
+
+    if($_SESSION["User"]->passwort == $formPasswort && $formPasswort !="" )
         {
         $_SESSION["login"] = true;?>
         <p>Der Login war erfolgreich.</p>;

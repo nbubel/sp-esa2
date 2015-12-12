@@ -10,7 +10,6 @@ class Artikel {
     public $farbe;
     public $bild;
     public $artikelonline;
-    public $artikelnr;
 
     /**
      * Konstruktor fuer einen User
@@ -22,16 +21,15 @@ class Artikel {
         $this->farbe = $farbe;
         $this->bild = $bild;
         $this->artikelonline = $artikelonline;
-        $artikelnr = $artikelnr + 1;
     }
 
 
     public function __toString(){
-      return (string)$this->artikelnummer;
+      return (string) $this->artikelname. " in der Groesse: " .$this->groesse. " und der Farbe: " .$this->farbe;
     }
 
     public function getArtikelnummer(){
-      return $artikelnr;
+      return $this->artikelnummer;
     }
 }
 ?>

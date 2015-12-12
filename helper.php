@@ -1,4 +1,17 @@
 <?php
+require_once ('User.php');
+require_once ('Artikel.php');
+require_once ('Bestellung.php');
+
+
+function getUserName($userx){
+  return "User ".$userx->name;
+}
+
+function getArtikelSize($artx){
+  return "Artikelsize: ".$artx->groesse;
+}
+
 
 function head(){
   echo"
@@ -47,8 +60,11 @@ function nav(){
        </div>
        <div id='navbar' class='navbar-collapse collapse'>
          <ul class='nav navbar-nav'>
-           <li><a href='shop.php'>Bekleidung</a></li>
-           <li><a href='Logout.php'>Logout</a></li>
+          <li><a href='index.php'>1. Login</a></li>
+          <li><a href='shop.php'>2. Artikel wählen</a></li>
+          <li><a href='index.php'>3. Bestellung abschließen</a></li>
+          <li><a href='index.php'>4. Bestätigung anzeigen</a></li>
+           <li><a href='Logout.php'>5. Logout</a></li>
          </ul>
        </div><!--/.nav-collapse -->
      </div>

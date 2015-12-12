@@ -42,36 +42,34 @@ echo "<table>";
 
 while ($row = mysqli_fetch_array( $db_erg, MYSQL_ASSOC))
 {
-  echo "<tr>";
+  /*echo "<tr>";
   echo "<td>". $row['artikelID'] . "</td>";
   echo "<td>". $row['name'] . "</td>";
   echo "<td>". $row['groesse'] . "</td>";
   echo "<td>". $row['farbe'] . "</td>";
   echo "<td>". $row['bild'] . "</td>";
   echo "<td>". $row['online'] . "</td>";
-  echo "</tr>";
-  $artikel = new Artikel($row->artikelID,$row->name,$row->groesse,$row->farbe,$row->bild,$row->online);
+  echo "</tr>";*/
+  $artikel = new Artikel($row['artikelID'],$row['name'],$row['groesse'],$row['farbe'],$row['bild'],$row['online']);
   array_push($artikelliste, $artikel);
 }
 echo "</table>";?>
 
-<p>Bitte wählen Sie aus der Liste die Artikelnummen, die Sie bestellen möchten.</p><p>
+<p>Bitte wählen Sie aus der Liste den Artikel, den Sie bestellen möchten.</p><p>
 
 <?php
 $artikelmenge = sizeof($artikelliste);
-$art = $artikelliste[1];
-$anr = $art->getArtikelnummer();
-$artn = 1;
+$art = Artikel;
 ?>
 
 </p>
 <form action="index.php" method="post">
-<b>Artikelnummer:</b><select class="form-control" size="<?php echo "{$artikelmenge}"; ?>" name="artikelnummer">
+<!--<b>Artikelnummer:</b>--><select class="form-control" size="<?php echo "{$artikelmenge}"; ?>" name="nr" required>
 <?php
 
  for ($i=0; $i < $artikelmenge; $i++) {
-   echo "<option  value='".$artn. "'>".$artn. "</option>";
-   $artn = $artn+1;
+   $art = $artikelliste[$i];
+   echo "<option  value='".$art->artikelnummer. "'>".$art. "</option>";
  }
 ?>
 
@@ -79,6 +77,8 @@ $artn = 1;
 <br>
 <input class='btn btn-lg btn-primary' style="background-color: red;border-color: darkred; color: white;" type="submit" value="Zur Bestellung">
 </form>
+
+
 
 <?php
 $_SESSION["artikelliste"] = $artikelliste;?>
